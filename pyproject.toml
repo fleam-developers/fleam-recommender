@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fleam-recommender"
+version = "0.1.0"
+description = ""
+authors = ["Mert Can Demir <validatedev@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10.4"
+recompy = "^1.0.3"
+
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
