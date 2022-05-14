@@ -38,6 +38,5 @@ COPY --chown=$APP_USER:$APP_USER ./poetry.lock ./pyproject.toml /app/
 
 
 # Install poetry and dependencies
-RUN poetry update \
-    && poetry install --no-interaction \
+RUN poetry install --no-interaction \
     && poetry run pip install -U pip

@@ -19,6 +19,6 @@ def server():
     help="Log level",
 )
 def run_server(log_level):
-    uvicorn.run("src.app:app", log_level="debug", reload=True, host="0.0.0.0", port=8000)
+    uvicorn.run("src.main:app", log_level="debug", reload=True, host="0.0.0.0", port=8000)
 
 
