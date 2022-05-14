@@ -1,7 +1,15 @@
-FROM python:3.10.4-bullseye as builder
+FROM python:3.10.4-bullseye as dev_build
 
+ENV DOCKERIZE_VERSION=v0.6.1 \
+    POETRY_VERSION=1.1.13 \
+    POETRY_CACHE_DIR='/var/cache/pypoetry' \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    PATH="$PATH:/root/.local/bin"
 
-ENV DOCKERIZE_VERSION v0.6.1
+ARG APP_USER="root"
+ARG UID=1001
+ARG GID=1001
 
 # Update the system
 RUN apt-get update -y && \
@@ -22,4 +30,11 @@ RUN apt-get update -y && \
 
 WORKDIR /app
 
-    
+# For caching purposes
+COPY --chown=$APP_USER:$APP_USER ./poetry.lock ./pyproject.toml /app/
+
+
+# Install poetry and dependencies
+RUN poetry update \
+    && poetry install --no-interaction \
+    && poetry run pip install -U pip
