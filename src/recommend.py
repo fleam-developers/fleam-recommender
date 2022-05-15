@@ -5,6 +5,10 @@ class UserInput(BaseModel):
     userId: int
     numOfRecommendations: int
 
+class MovieInput(BaseModel):
+    movieId: int
+    numOfRecommendations: int
+
 class ResponseOutput(BaseModel):
     recommendations: list
 
@@ -26,6 +30,14 @@ def get_voting(user_id) -> dict:
 
 def predict_recommendations_of_user(user_votings: dict, num_of_items: int) -> list:
 
+    return model.get_recommendation_for_new_user(user_votings, similarity_measure = 'cosine_similarity', 
+                                       howManyUsers = 1, howManyItems = num_of_items)
+
+def predict_recommendations_of_movie(movie_id: int, num_of_items: int) -> list:
+    # Mock user voting
+    user_votings = {
+        f'{movie_id}':5,
+    }
     return model.get_recommendation_for_new_user(user_votings, similarity_measure = 'cosine_similarity', 
                                        howManyUsers = 1, howManyItems = num_of_items)
 
