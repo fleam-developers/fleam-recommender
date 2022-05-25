@@ -1,16 +1,5 @@
 from recompy import load_movie_data, FunkSVD
-from pydantic import BaseModel
-
-class UserInput(BaseModel):
-    userId: int
-    numOfRecommendations: int
-
-class MovieInput(BaseModel):
-    movieId: int
-    numOfRecommendations: int
-
-class ResponseOutput(BaseModel):
-    recommendations: list
+from src.eureka import eureka_client
 
 def train_model() -> FunkSVD:
     clf = FunkSVD()
@@ -18,14 +7,8 @@ def train_model() -> FunkSVD:
     return clf
 
 def get_voting(user_id) -> dict:
-    # Returns mock data for now
-    # TODO: Send request to the another endpoint
-    # TODO: We should also implement eureka client to get the data from the other microservices
-    return {
-     '1':5,
-     '2':4,
-     '4':3
-    }
+    ratings = eureka_client.do_service("ACCOUNT-SERVICE", "/movie/rating/user/"+str(user_id), return_type="json")
+    return ratings
 
 
 def predict_recommendations_of_user(user_votings: dict, num_of_items: int) -> list:
