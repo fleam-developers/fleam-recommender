@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.recommend import predict_recommendations_of_user, predict_recommendations_of_movie, get_voting, UserInput, ResponseOutput
+from src.recommend import predict_recommendations_of_user, predict_recommendations_of_movie, get_voting
 
 app = FastAPI()
 
